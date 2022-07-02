@@ -1,38 +1,68 @@
-.section__title{
-    .title{
-        font-size: 18px;
-        text-transform: uppercase;
-        margin: 0;
-    }
-    .subtitle{
-        font-size: 10px;
-        opacity: .8;
-    }
+.section__title {
+  .title {
+    font-size: 18px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .subtitle {
+    font-size: 10px;
+    opacity: 0.8;
+  }
 }
-.content{
-    .btn__wrapper{
-        .next__btn{
-            background-color: $text-color;
-            border: none;
-            padding: 10px 40px;
-        }
+.content {
+  .btn__wrapper {
+    .next__btn {
+      background-color: $text-color;
+      border: none;
+      padding: 10px 40px;
     }
-    .education__wraper{
-        .remove__last__education{
-            font-size: 8px;
-            border-radius: 35px;
-            background-color: transparent;
+  }
+  .element__wraper {
+    .elem {
+      border-radius: 10px;
+      box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
+        rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+      margin-bottom: 10px;
+      h4{
+          font-size: 18px;
+      }
+      .singl__elem {
+        font-size: 11px;
+        font-weight: bold;
+        span {
+          font-weight: 300;
+        }
+      }
+    }
+    .single__element {
+      // border-top: 1px solid rgb(179, 179, 179);
+      padding-top: 10px;
+      // margin-bottom: 1rem;
+      &:first-child {
+        border: none;
+      }
+      .form-label {
+        font-size: 12px;
+        margin-bottom: 0.1rem;
+        .important{
+            font-size: 15px;
             color: red;
-            box-shadow: none;
-            border-color: red;
         }
-        .single__education{
-            border-top: 1px solid rgb(179, 179, 179);
-            padding-top: 10px;
-            margin-bottom: 1rem;
-            &:first-child{
-                border: none;
-            }
+      }
+      .form-control {
+        padding: 0.1rem 0.75rem;
+        font-size: 0.8rem;
+        &:focus-within {
+          box-shadow: none;
         }
+      }
     }
+    .add__element__btn {
+      background-color: #00ff6d;
+      border: none;
+      border-radius: 35px;
+      font-size: .7rem;
+      box-shadow: none;
+    }
+  }
 }

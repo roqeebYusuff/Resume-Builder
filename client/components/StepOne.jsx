@@ -1,20 +1,20 @@
 import { useState } from "react"
 import { Button, Col, Form, FormFeedback, FormGroup, FormText, Input, Label, Row } from "reactstrap"
 import { useRecoilState } from 'recoil'
-import { firstNameState, lastNameState, middleNameState, currentPageState } from '../atom/atom'
+import { personalInfoList } from '../atom/atom'
 import AnimatedPage from "./AnimatedPage"
+import { Notify } from 'notiflix/build/notiflix-notify-aio'
 
 function StepOne({ nextStep, prevStep }) {
-    // const [currentPage, setCurrentPage] = useRecoilState(currentPageState)
-    const [firstName, setfirstName] = useRecoilState(firstNameState)
-    const [lastName, setlastName] = useRecoilState(lastNameState)
-    const [middleName, setmiddleName] = useRecoilState(middleNameState)
+    const [personalInfos, setPersonalInfos] = useRecoilState(personalInfoList)
 
-    const [firstNameNotValid, setFirstNameNotValid] = useState(false)
-    const [lastNameNotValid, setLastNameNotValid] = useState(true)
-
-    const isAllValid = () => {
-        /* Check for all conditions */
+    const handleNextCLicked = () => {
+        if (personalInfos.firstName !== '' && personalInfos.lastName !== '' && personalInfos.middleName !== '' && personalInfos.email !== '' && personalInfos.telephone !== '') {
+            nextStep()
+        }
+        else {
+            Notify.failure('Required fields cannot be left empty', { cssAnimationStyle: 'zoom', timeout: 5000, clickToClose: true, showOnlyTheLastOne: true })
+        }
     }
 
     return (
@@ -24,66 +24,55 @@ function StepOne({ nextStep, prevStep }) {
                 <p className="subtitle">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem illum ratione sequi, facilis possimus, eveniet consequatur ad iure id tempora ex aliquid repudiandae accusantium iusto laudantium nemo esse, placeat quidem!</p>
             </div>
             <div className="content">
-                <Form>
-                    <Row>
-                        <Col md='4'>
-                            <FormGroup>
-                                <Label for="firstName">
-                                    FirstName
-                                </Label>
-                                <Input id="firstName" value={firstName} onChange={(e) => setfirstName(e.target.value)} invalid={firstNameNotValid} />
-                                <FormFeedback>
-                                    FirstName is required
-                                </FormFeedback>
-                            </FormGroup>
-                        </Col>
-                        <Col md='4'>
-                            <FormGroup>
-                                <Label for="firstName">
-                                    LastName
-                                </Label>
-                                <Input id="firstName" value={lastName} onChange={(e) => setlastName(e.target.value)} invalid={lastNameNotValid} />
-                                <FormFeedback>
-                                    Last Name is required
-                                </FormFeedback>
-                            </FormGroup>
-                        </Col>
-                        <Col md='4'>
-                            <FormGroup>
-                                <Label for="firstName">
-                                    MiddleName
-                                </Label>
-                                <Input id="firstName" value={middleName} onChange={(e) => setmiddleName(e.target.value)} invalid={lastNameNotValid} />
-                                <FormFeedback>
-                                    Middle Name is required
-                                </FormFeedback>
-                            </FormGroup>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md='6'>
-                            <FormGroup>
-                                <Label for='email'>Email</Label>
-                                <Input id="email" value='' />
-                                <FormFeedback>
-                                    Email is required
-                                </FormFeedback>
-                            </FormGroup>
-                        </Col>
-                        <Col md='6'>
-                            <FormGroup>
-                                <Label for='email'>Phone Number</Label>
-                                <Input id="tel" value='' />
-                                <FormFeedback>
-                                    Phone Number is required
-                                </FormFeedback>
-                            </FormGroup>
-                        </Col>
-                    </Row>
-                </Form>
+                <div className="element__wraper">
+                    <Form>
+                        <div className="single__element">
+                            <Row>
+                                <Col md='4'>
+                                    <FormGroup>
+                                        <Label for="firstName">
+                                            FirstName<span className="important">*</span>
+                                        </Label>
+                                        <Input id="firstName" value={personalInfos.firstName} onChange={(e) => setPersonalInfos({...personalInfos, firstName: e.target.value})} />
+                                    </FormGroup>
+                                </Col>
+                                <Col md='4'>
+                                    <FormGroup>
+                                        <Label for="firstName">
+                                            LastName<span className="important">*</span>
+                                        </Label>
+                                        <Input id="firstName" value={personalInfos.lastName} onChange={(e) => setPersonalInfos({...personalInfos, lastName: e.target.value})} />
+                                    </FormGroup>
+                                </Col>
+                                <Col md='4'>
+                                    <FormGroup>
+                                        <Label for="firstName">
+                                            MiddleName<span className="important">*</span>
+                                        </Label>
+                                        <Input id="firstName" value={personalInfos.middleName} onChange={(e) => setPersonalInfos({...personalInfos, middleName: e.target.value})} />
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col md='6'>
+                                    <FormGroup>
+                                        <Label for='email'>Email<span className="important">*</span></Label>
+                                        <Input id="email" value={personalInfos.email} onChange={(e) => setPersonalInfos({...personalInfos, email: e.target.value})} />
+                                    </FormGroup>
+                                </Col>
+                                <Col md='6'>
+                                    <FormGroup>
+                                        <Label for='tel'>Phone Number<span className="important">*</span></Label>
+                                        <Input id="tel" value={personalInfos.telephone} onChange={(e) => setPersonalInfos({...personalInfos, telephone: e.target.value})} />
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                        </div>
+                    </Form>
+                </div>
                 <div className="btn__wrapper">
                     <div className="text-end">
-                        <Button className="next__btn" onClick={nextStep}>Next</Button>
+                        <Button className="next__btn" onClick={handleNextCLicked}>Next</Button>
                     </div>
                 </div>
             </div>

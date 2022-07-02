@@ -1,26 +1,37 @@
 import {atom} from 'recoil'
 
-export const firstNameState = atom({
-    key: 'firstNameState',
-    default: ''
-})
-
-export const lastNameState = atom({
-    key: 'lastNameState',
-    default: ''
-})
-
-export const middleNameState = atom({
-    key: 'middleNameState',
-    default: ''
-})
-
 export const currentPageState = atom({
     key: 'currentPageState',
     default: 1
 })
 
+export const personalInfoList = atom({
+    key: 'personalInfoList',
+    default: {
+        firstName: '',
+        lastName: '',
+        middleName: '',
+        email: '',
+        telephone: ''
+    }
+})
+
 export const educationList = atom({
     key: 'educationList',
+    default: []
+})
+
+export const experienceList = atom({
+    key: 'experienceList',
+    default: []
+})
+
+export const projectList = atom({
+    key: 'projectList',
+    default: []
+})
+
+export const skillList = atom({
+    key: 'skillList',
     default: []
 })

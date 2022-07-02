@@ -3,6 +3,9 @@ import { Button, Col, Form, FormFeedback, FormGroup, Input, Label, Row } from "r
 import AnimatedPage from "./AnimatedPage"
 import { useRecoilState } from 'recoil'
 import { educationList } from '../atom/atom'
+import { FcPlanner, FcOvertime, FcDepartment, FcGraduationCap, FcBriefcase, FcEmptyTrash } from 'react-icons/fc'
+import { FiTrash2 } from 'react-icons/fi'
+import { Notify } from 'notiflix/build/notiflix-notify-aio'
 
 function StepTwo({ nextStep, prevStep }) {
     const [educations, setEducations] = useRecoilState(educationList)
@@ -11,22 +14,41 @@ function StepTwo({ nextStep, prevStep }) {
     const [course, setCourse] = useState('')
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
-    const [present, setPresent] = useState('')
+    // const [present, setPresent] = useState('')
+    const [isPresent, setIsPresent] = useState(false)
 
     const addNewEducation = () => {
-        setEducations((educations) => [...educations, { study, institution, course, startDate, endDate: present === '' ? endDate : present }]);
-
-        /* Set fields to empty */
-        setStudy('')
-        setInstitution('')
-        setCourse('')
-        setStartDate('')
-        setEndDate('')
-        setPresent('')
+        /* Check if all fields are set */
+        if (study !== '' && institution !== '' && course !== '' && startDate !== '' && endDate !== '') {
+            setEducations((educations) => [...educations, { study, institution, course, startDate, endDate }]);
+            /* Set fields to empty */
+            setStudy('')
+            setInstitution('')
+            setCourse('')
+            setStartDate('')
+            setEndDate('')
+        }
+        else {
+            Notify.failure('Required fields cannot be empty', { cssAnimationStyle: 'zoom', timeout: 5000, clickToClose: true, showOnlyTheLastOne: true })
+        }
     }
 
     const removeElement = (index) => {
         setEducations((educations) => educations.filter((_, i) => i !== index))
+    }
+
+    const handlePresent = (e) => {
+        e.target.checked ? setEndDate('Present') : setEndDate('')
+        setIsPresent(!isPresent)
+    }
+
+    const handleNextCLicked = () => {
+        if (educations.length > 0) {
+            nextStep()
+        }
+        else {
+            Notify.failure('Education is not set', { cssAnimationStyle: 'zoom', timeout: 5000, clickToClose: true, showOnlyTheLastOne: true })
+        }
     }
 
     return (
@@ -36,30 +58,34 @@ function StepTwo({ nextStep, prevStep }) {
                 <p className="subtitle">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem illum ratione sequi, facilis possimus, eveniet consequatur ad iure id tempora ex aliquid repudiandae accusantium iusto laudantium nemo esse, placeat quidem!</p>
             </div>
             <div className="content">
-                <div className="education__wraper">
+                <div className="element__wraper">
                     <Row>
                         {
                             educations.map((education, index) => {
                                 return (
                                     <Col md='4' key={index}>
-                                        <h4>Education {index + 1}</h4>
-                                        <div>Study: {education.study}</div>
-                                        <div>Institution: {education.institution}</div>
-                                        <div>Course: {education.course}</div>
-                                        <div>Start Date: {education.startDate}</div>
-                                        <div>End Date: {education.endDate}</div>
-                                        <div><button onClick={() => removeElement(index)}>Delete</button></div>
+                                        <div className="elem p-2">
+                                            <div className="d-flex justify-content-between align-items-center">
+                                                <h4 className="m-0">Education {index + 1}</h4>
+                                                <FiTrash2 size={18} color='red' style={{ cursor: 'pointer' }} onClick={() => removeElement(index)} />
+                                            </div>
+                                            <div className="singl__elem"><FcGraduationCap size={15} /><span>{education.study}</span> </div>
+                                            <div className="singl__elem"><FcDepartment size={15} /> <span>{education.institution}</span></div>
+                                            <div className="singl__elem"><FcBriefcase size={15} /> <span>{education.course}</span></div>
+                                            <div className="singl__elem"><FcPlanner size={15} /> <span>{education.startDate}</span></div>
+                                            <div className="singl__elem"><FcOvertime size={15} /> <span>{education.endDate}</span></div>
+                                        </div>
                                     </Col>
                                 )
                             })
                         }
                     </Row>
                     <Form >
-                        <div className="single__education border-b">
+                        <div className="single__element border-b">
                             <Row>
                                 <Col md='4'>
                                     <FormGroup>
-                                        <Label>Study Program</Label>
+                                        <Label>Study Program<span className="important">*</span></Label>
                                         <Input placeholder="B.Tech" value={study} onChange={(e) => setStudy(e.target.value)} />
                                         <FormFeedback>
                                             Field cannot be empty
@@ -68,61 +94,48 @@ function StepTwo({ nextStep, prevStep }) {
                                 </Col>
                                 <Col md='4'>
                                     <FormGroup>
-                                        <Label>Institution</Label>
+                                        <Label>Institution<span className="important">*</span></Label>
                                         <Input placeholder="Institution" value={institution} onChange={(e) => setInstitution(e.target.value)} />
-                                        <FormFeedback>
-                                            Field cannot be empty
-                                        </FormFeedback>
                                     </FormGroup>
                                 </Col>
                                 <Col md='4'>
                                     <FormGroup>
-                                        <Label>Course</Label>
+                                        <Label>Course<span className="important">*</span></Label>
                                         <Input placeholder="Computer Science" value={course} onChange={(e) => setCourse(e.target.value)} />
-                                        <FormFeedback>
-                                            Field cannot be empty
-                                        </FormFeedback>
                                     </FormGroup>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col md='6'>
                                     <FormGroup>
-                                        <Label>Start Date</Label>
+                                        <Label>Start Date<span className="important">*</span></Label>
                                         <Input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-                                        <FormFeedback>
-                                            Field cannot be empty
-                                        </FormFeedback>
                                     </FormGroup>
                                 </Col>
                                 <Col md='6'>
                                     <FormGroup>
-                                        <Label>End Date</Label>
-                                        <Input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
-                                        <FormFeedback>
-                                            Field cannot be empty
-                                        </FormFeedback>
-                                    </FormGroup>
-                                    <FormGroup
-                                        check
-                                        inline
-                                    >
-                                        <Input type="checkbox" onChange={(e) => { e.target.checked ? setPresent('Present') : setPresent('') }} />
-                                        <Label check>
-                                            Present
-                                        </Label>
+                                        <Label>End Date<span className="important">*</span></Label>
+                                        <Input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} readOnly={isPresent} />
+                                        <div className="text-end">
+                                            <Input type="checkbox" onChange={handlePresent} className='mr-3' />
+                                            <Label check className="ml-2">
+                                                Present
+                                            </Label>
+                                        </div>
                                     </FormGroup>
                                 </Col>
                             </Row>
                         </div>
-                        <Button onClick={addNewEducation}>Add Education</Button>
+                        <div className="text-end">
+                            <Button className="add__element__btn" onClick={addNewEducation}>Add Education</Button>
+                        </div>
                     </Form>
                 </div>
 
                 <div className="btn__wrapper">
                     <div className="d-flex justify-content-between">
                         <Button className="next__btn" onClick={prevStep}>Prev</Button>
-                        <Button className="next__btn" onClick={nextStep}>Next</Button>
+                        <Button className="next__btn" onClick={handleNextCLicked}>Next</Button>
                     </div>
                 </div>
             </div>

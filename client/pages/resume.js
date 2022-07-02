@@ -8,15 +8,11 @@ import { useRecoilState } from "recoil";
 import { firstNameState, lastNameState, middleNameState } from "../atom/atom";
 import StepThree from "../components/StepThree";
 import StepFour from "../components/StepFour";
+import StepFIve from "../components/StepFIve";
 
 export default function Playground() {
   const [currentStep, setCurrentStep] = useState(1);
   const [totalSteps, setTotalSteps] = useState(5);
-
-  /* Pesonal Information */
-  const [firstName, setFirstName] = useRecoilState(firstNameState);
-  const [lastName, setLastName] = useRecoilState(lastNameState);
-  const [middleName, setMiddleName] = useRecoilState(middleNameState);
 
   /* Work Experience */
 
@@ -47,17 +43,12 @@ export default function Playground() {
 
       case 4:
         return <StepFour nextStep={NextCLicked} prevStep={PreviousCLicked} />;
+
+      case 5:
+        return <StepFIve nextStep={NextCLicked} prevStep={PreviousCLicked} />;
       default:
         break;
     }
-  };
-
-  const allData = () => {
-    console.log({
-      firstName,
-      lastName,
-      middleName,
-    });
   };
 
   return (
@@ -69,22 +60,20 @@ export default function Playground() {
       </Head>
 
       <main className="resume__builder d-flex justify-content-center">
-        <div className="p-5 w-100">
+        <div className="all__wraper w-100">
           <div className="steps">
             <ul className="progressBar">
               <li className="active">Personal Information</li>
               <li className={`${currentStep >= 2 ? "active " : ""}`}>
-                Step Two
+                Education
               </li>
               <li className={`${currentStep >= 3 ? "active" : ""}`}>
-                Step Three
+                Experience
               </li>
               <li className={`${currentStep >= 4 ? "active" : ""}`}>
-                Step Four
+                Projects
               </li>
-              <li className={`${currentStep >= 5 ? "active" : ""}`}>
-                Step Five
-              </li>
+              <li className={`${currentStep >= 5 ? "active" : ""}`}>Skills</li>
             </ul>
           </div>
           {/* <div className="backToHome">
@@ -94,7 +83,9 @@ export default function Playground() {
           </div> */}
           <section className="comp__wraper">
             <div className="playground m-auto">
-              <div className="show overflow-hidden">{showComponents()}</div>
+              <div className="overflow-hidden">
+                <div className="show">{showComponents()}</div>
+              </div>
             </div>
           </section>
 
