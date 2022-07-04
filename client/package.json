@@ -25,5 +25,5 @@
     "eslint": "8.18.0",
     "eslint-config-next": "12.2.0"
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:7000"
 }

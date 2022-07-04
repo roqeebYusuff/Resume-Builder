@@ -35,3 +35,13 @@ export const skillList = atom({
     key: 'skillList',
     default: []
 })
+
+export const socialLinksList = atom({
+    key: 'socialLinksList',
+    default: {
+        website: '',
+        github: '',
+        linkedin: '',
+        twitter: '',
+    }
+})

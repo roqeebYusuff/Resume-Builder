@@ -1,0 +1,224 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title User&apos;s Resume
+  link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous')
+  
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==' crossorigin='anonymous' referrerpolicy='no-referrer')
+  style.
+    * {
+    font-family: "Work Sans", sans-serif;
+    box-sizing: border-box;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+    margin: 0;
+    padding: 0;
+    }
+    .d-flex{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    }
+    .main__wrapper {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    min-height: 100vh;
+    }
+    .resume__owner {
+    background-color: darkcyan;
+    /* padding: 0.3rem 0; */
+    text-align: center;
+    }
+    .resume__owner .name {
+    font-size: 3rem;
+    }
+    .resume__owner .contacts {
+    background-color: #024141;
+    color: #fff;
+    text-align: initial;
+    padding: 5px 1rem;
+    }
+    .resume__owner .contacts .social__icon i {
+    padding-right: 10px;
+    }
+    .other__info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 1rem;
+    }
+    .other__info .left,
+    .other__info .right {
+    width: 50%;
+    padding: 0 5px;
+    }
+    .single__section {
+    margin-bottom: 10px;
+    }
+    .single__section:last-child {
+    margin-bottom: 0;
+    }
+    .single__section .section__title {
+    font-weight: 700;
+    color: darkcyan;
+    text-decoration: underline;
+    text-decoration-thickness: initial;
+    text-decoration-style: wavy;
+    text-decoration-color: #024141;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    }
+    .single__section .section__subtitle {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: initial;
+    }
+    .single__section .section__semi__subtitle {
+    font-size: 17px;
+    font-weight: 400;
+    }
+    .single__section .section__semi__subtitle span {
+    font-weight: 700;
+    }
+    .single__section .small {
+    color: darkcyan;
+    font-style: italic;
+    }
+    .single__section .description h6 {
+    color: rgb(3, 89, 89);
+    font-size: 13px;
+    }
+    .single__section .description p {
+    font-size: 13px;
+    font-weight: 300;
+    }
+    .single__section .link {
+    font-size: 13px;
+    }
+    .single__section .link a {
+    margin-left: 5px;
+    font-size: 13px;
+    font-style: italic;
+    text-decoration: none;
+    color: darkcyan;
+    display: inline-block;
+    }
+    .single__section .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    }
+    .single__section .list .list__items {
+    display: inline-block;
+    background-color: darkcyan;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-size: 13px;
+    margin-right: 5px;
+    }
+.resume__wrapper
+  .container
+    .main__wrapper
+      .resume__owner
+        h4.name John Doe
+        p.description
+          | Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo animi quidem aliquid sed impedit nesciunt voluptatem, quasi iure dolores soluta numquam id doloribus ipsa, voluptatum perferendis
+        .contacts
+          .d-flex
+            .col-6
+              .side
+                .social__icon
+                  i.fa-regular.fa-envelope
+                  span User
+                .social__icon
+                  i.fa-solid.fa-globe
+                  span Website
+                .social__icon
+                  i.fa-brands.fa-linkedin
+                  span Linkedin
+            .col-6
+              .side
+                .social__icon
+                  i.fa-solid.fa-mobile-screen
+                  span Telephone
+                .social__icon
+                  i.fa-brands.fa-github
+                  span Github
+                .social__icon
+                  i.fa-brands.fa-twitter
+                  span Twitter
+      .other__info
+        .left
+          section.single__section
+            h5.section__title Education
+            .section__content
+              h5.section__subtitle School
+              h5.section__semi__subtitle
+                | Education Type - 
+                span Computer Science
+              .small
+                span From
+                |  - 
+                span To
+          section.single__section
+            h5.section__title Experince
+            .section__content
+              h5.section__subtitle Trainee Dev
+              h5.section__semi__subtitle COmpany
+              .small
+                span From
+                |  - 
+                span To
+              .description
+                h6.title Description
+                p
+                  | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  | Pariatur, amet dolor officiis possimus, iure aliquid
+                  | veniam cupiditate obcaecati dolore maiores quas minima ad
+                  | architecto iste vitae omnis provident aliquam neque.
+        .right
+          section.single__section
+            h5.section__title Projects
+            .section__content
+              h5.section__subtitle Title
+              .link
+                i.fa-solid.fa-link
+                span
+                    a(href='#') Link
+              .description
+                h6.title Description
+                p
+                  | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  | Pariatur, amet dolor officiis possimus, iure aliquid
+                  | veniam cupiditate obcaecati dolore maiores quas minima ad
+                  | architecto iste vitae omnis provident aliquam neque.
+          section.single__section
+            h5.section__title Skills
+            .section__content
+              ul.list
+                li.list__items Skill One jjkjkd
+                li.list__items Skill One
+                li.list__items Skill One
+                li.list__items Skill One
+                li.list__items Skill One
+                li.list__items Skill One
+                li.list__items Skill One
+          section.single__section
+            h5.section__title Skills
+            .section__content
+              ul.list
+                li.list__items Skill One jjkjkd
+                li.list__items Skill One
+                li.list__items Skill One
+                li.list__items Skill One
+                li.list__items Skill One
+                li.list__items Skill One
+                li.list__items Skill One

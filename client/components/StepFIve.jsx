@@ -11,20 +11,14 @@ const StepFIve = ({ prevStep, nextStep }) => {
     const [skillName, setSkillName] = useState('')
 
     const addNewSkill = () => {
-        if (!isFieldsValid()) {
-            Notify.failure('Required fields cannot be empty', { clickToClose: true, timeout: 5000, cssAnimationStyle: 'from-right' })
+        console.log(skills)
+        if (skillName === '') {
+            Notify.failure('Required field cannot be empty', { clickToClose: true, timeout: 5000, cssAnimationStyle: 'zoom', showOnlyTheLastOne: true })
         }
         else {
-            setSkills((skills) => [...skills, { skillName }])
+            setSkills((skills) => [...skills, {skillName}])
             setSkillName('')
         }
-    }
-
-    const isFieldsValid = () => {
-        if (skillName == '') {
-            return false
-        }
-        return true
     }
 
     const removeSkill = (index) => {
@@ -33,11 +27,11 @@ const StepFIve = ({ prevStep, nextStep }) => {
 
     const handleFinishCLick = () => {
         /* Check if skills list is not empty */
-        if (skills.length < 1) {
-            Notify.failure('You don\'t have any skill listed yet', { cssAnimationStyle: 'zoom', timeout: 5000, clickToClose: true, showOnlyTheLastOne: true })
+        if (skills.length > 0) {
+            nextStep()
         }
         else {
-            nextStep()
+            Notify.failure('You don\'t have any skill listed yet', { cssAnimationStyle: 'zoom', timeout: 5000, clickToClose: true, showOnlyTheLastOne: true })
         }
     }
 
@@ -73,14 +67,11 @@ const StepFIve = ({ prevStep, nextStep }) => {
                                     <div>
                                         <Label>Skill<span className="important">*</span></Label>
                                         <Input value={skillName} onChange={(e) => setSkillName(e.target.value)} />
-                                        <FormFeedback>
-                                            Field cannot be empty
-                                        </FormFeedback>
                                     </div>
                                 </Col>
                             </Row>
                         </div>
-                        <div className="">
+                        <div className="mt-2">
                             <Button className="add__element__btn" onClick={addNewSkill}>Add Skill</Button>
                         </div>
                     </Form>
@@ -88,7 +79,7 @@ const StepFIve = ({ prevStep, nextStep }) => {
                 <div className="btn__wrapper">
                     <div className="d-flex justify-content-between">
                         <Button className="next__btn" onClick={prevStep}>Prev</Button>
-                        <Button className="next__btn" onClick={handleFinishCLick}>Finish</Button>
+                        <Button className="next__btn" onClick={handleFinishCLick}>Next</Button>
                     </div>
                 </div>
             </div>

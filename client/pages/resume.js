@@ -1,26 +1,34 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Container } from "reactstrap";
 import StepOne from "../components/StepOne";
 import StepTwo from "../components/StepTwo";
 import { useRecoilState } from "recoil";
-import { firstNameState, lastNameState, middleNameState } from "../atom/atom";
+import {
+  personalInfoList,
+  educationList,
+  experienceList,
+  projectList,
+  skillList,
+  socialLinksList,
+} from "../atom/atom";
 import StepThree from "../components/StepThree";
 import StepFour from "../components/StepFour";
 import StepFIve from "../components/StepFIve";
+import StepSix from "../components/StepSix";
+import StepFinal from "../components/StepFinal";
+import axios from 'axios'
 
 export default function Playground() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [totalSteps, setTotalSteps] = useState(5);
+  const [personalInfo, setPersonalInfo] = useRecoilState(personalInfoList);
+  const [educations, setEducations] = useRecoilState(educationList);
+  const [experiences, setExpeiences] = useRecoilState(experienceList);
+  const [projects, setProjects] = useRecoilState(projectList);
+  const [skills, setSkills] = useRecoilState(skillList);
+  const [socials, setSocials] = useRecoilState(socialLinksList);
 
-  /* Work Experience */
-
-  /* Institution */
-
-  /* Hobbies */
-
-  /* Skills */
 
   const NextCLicked = () => {
     setCurrentStep(currentStep + 1);
@@ -29,6 +37,28 @@ export default function Playground() {
   const PreviousCLicked = () => {
     setCurrentStep(currentStep - 1);
   };
+
+  const download = () => {
+    axios.get('/api/v1')  
+    .then(({data}) => {
+      console.log(data)
+    })
+    .catch( (err) => {
+      console.log(err)
+    })
+    // console.log({
+    //   personalInfo,
+    //   educations,
+    //   experiences,
+    //   projects,
+    //   skills,
+    //   socials,
+    // });
+  };
+
+  useEffect(() => {
+    download()
+  }, [])
 
   const showComponents = () => {
     switch (currentStep) {
@@ -46,6 +76,13 @@ export default function Playground() {
 
       case 5:
         return <StepFIve nextStep={NextCLicked} prevStep={PreviousCLicked} />;
+
+      case 6:
+        return <StepSix nextStep={NextCLicked} prevStep={PreviousCLicked} />;
+
+      case 7:
+        return <StepFinal download={download} prevStep={PreviousCLicked} />;
+
       default:
         break;
     }
@@ -74,6 +111,7 @@ export default function Playground() {
                 Projects
               </li>
               <li className={`${currentStep >= 5 ? "active" : ""}`}>Skills</li>
+              <li className={`${currentStep >= 6 ? "active" : ""}`}>Socials</li>
             </ul>
           </div>
           {/* <div className="backToHome">
