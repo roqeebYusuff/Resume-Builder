@@ -15,8 +15,8 @@
     "client": "cd client && yarn start",
     "server": "env-cmd nodemon ./src/server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn client-dev\" \"yarn server\"",
-    "start": "concurrently --kill-others-on-fail \"yarn client\" \"yarn server\"",
-    "client:build": "cd client && yarn build"
+    "start": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
+    "build": "cd client && yarn build"
   },
   "dependencies": {
     "body-parser": "^1.20.0",
