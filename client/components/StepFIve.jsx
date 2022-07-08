@@ -16,7 +16,7 @@ const StepFIve = ({ prevStep, nextStep }) => {
             Notify.failure('Required field cannot be empty', { clickToClose: true, timeout: 5000, cssAnimationStyle: 'zoom', showOnlyTheLastOne: true })
         }
         else {
-            setSkills((skills) => [...skills, {skillName}])
+            setSkills((skills) => [...skills, skillName])
             setSkillName('')
         }
     }
@@ -51,7 +51,7 @@ const StepFIve = ({ prevStep, nextStep }) => {
                                     <Col md='3' key={index}>
                                         <div className="elem p-2">
                                             <div className="d-flex justify-content-between align-items-center">
-                                                <div className="singl__elem"><span>{skill.skillName}</span> </div>
+                                                <div className="singl__elem"><span>{skill}</span> </div>
                                                 <FiTrash2 size={18} color='red' style={{ cursor: 'pointer' }} onClick={() => removeSkill(index)} />
                                             </div>
                                         </div>

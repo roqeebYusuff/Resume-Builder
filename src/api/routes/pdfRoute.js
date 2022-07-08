@@ -4,6 +4,7 @@ const pdfController = require('../controllers/pdfController')
 const router = new Router()
 
 // router.get('/createPdf', pdfController.pdf)
-router.get('/generatepdf', pdfController.createPdf)
+router.post('/generatepdf', pdfController.createPdf)
+router.get('/fetchPdf', pdfController.fetchPdf)
 
 module.exports = router

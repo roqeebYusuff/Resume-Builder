@@ -74,6 +74,12 @@ head
     margin-bottom: 5px;
     text-transform: uppercase;
     }
+    .single__section .section__content{
+      margin-top: 5px;
+    }
+    .single__section .section__content:first-child{
+      margin-top: 0;
+    }
     .single__section .section__subtitle {
     font-size: 20px;
     font-weight: 600;
@@ -128,97 +134,81 @@ head
   .container
     .main__wrapper
       .resume__owner
-        h4.name John Doe
-        p.description
-          | Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo animi quidem aliquid sed impedit nesciunt voluptatem, quasi iure dolores soluta numquam id doloribus ipsa, voluptatum perferendis
+        h4.name #{personalInfo.lastName} #{personalInfo.firstName} #{personalInfo.middleName} 
+        p.description #{personalInfo.about}
         .contacts
           .d-flex
             .col-6
               .side
                 .social__icon
                   i.fa-regular.fa-envelope
-                  span User
+                  span #{personalInfo.email}
                 .social__icon
                   i.fa-solid.fa-globe
-                  span Website
+                  span #{socials.website}
                 .social__icon
                   i.fa-brands.fa-linkedin
-                  span Linkedin
+                  span #{socials.linkedin}
             .col-6
               .side
                 .social__icon
                   i.fa-solid.fa-mobile-screen
-                  span Telephone
+                  span #{socials.website}
                 .social__icon
                   i.fa-brands.fa-github
-                  span Github
+                  span #{socials.github}
                 .social__icon
                   i.fa-brands.fa-twitter
-                  span Twitter
+                  span #{socials.twitter}
       .other__info
         .left
+          //- Educations
           section.single__section
             h5.section__title Education
-            .section__content
-              h5.section__subtitle School
-              h5.section__semi__subtitle
-                | Education Type - 
-                span Computer Science
-              .small
-                span From
-                |  - 
-                span To
+            for education in educations
+              .section__content
+                h5.section__subtitle #{education.institution}
+                h5.section__semi__subtitle
+                  | #{education.study} - 
+                  span #{education.course}
+                .small
+                  span #{education.startDate}
+                  |  - 
+                  span #{education.endDate}
           section.single__section
-            h5.section__title Experince
-            .section__content
-              h5.section__subtitle Trainee Dev
-              h5.section__semi__subtitle COmpany
-              .small
-                span From
-                |  - 
-                span To
-              .description
-                h6.title Description
-                p
-                  | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  | Pariatur, amet dolor officiis possimus, iure aliquid
-                  | veniam cupiditate obcaecati dolore maiores quas minima ad
-                  | architecto iste vitae omnis provident aliquam neque.
+            h5.section__title 
+            for experience in experiences
+              .section__content
+                h5.section__subtitle #{experience.position}
+                h5.section__semi__subtitle #{experience.organisation}
+                .small
+                  span #{experience.startDate}
+                  |  - 
+                  span #{experience.endDate}
+                .description
+                  h6.title Description
+                  p #{experience.description}
         .right
           section.single__section
             h5.section__title Projects
-            .section__content
-              h5.section__subtitle Title
-              .link
-                i.fa-solid.fa-link
-                span
-                    a(href='#') Link
-              .description
-                h6.title Description
-                p
-                  | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  | Pariatur, amet dolor officiis possimus, iure aliquid
-                  | veniam cupiditate obcaecati dolore maiores quas minima ad
-                  | architecto iste vitae omnis provident aliquam neque.
+            for project in projects
+              .section__content
+                h5.section__subtitle #{project.title}
+                .link
+                  i.fa-solid.fa-link
+                  span
+                      a(href=`${project.link}`) #{project.link}
+                .description
+                  h6.title Description
+                  p #{project.description}
           section.single__section
             h5.section__title Skills
             .section__content
               ul.list
-                li.list__items Skill One jjkjkd
-                li.list__items Skill One
-                li.list__items Skill One
-                li.list__items Skill One
-                li.list__items Skill One
-                li.list__items Skill One
-                li.list__items Skill One
+                for skill in skills 
+                  li.list__items #{skill}
           section.single__section
-            h5.section__title Skills
+            h5.section__title Interests
             .section__content
               ul.list
                 li.list__items Skill One jjkjkd
-                li.list__items Skill One
-                li.list__items Skill One
-                li.list__items Skill One
-                li.list__items Skill One
-                li.list__items Skill One
-                li.list__items Skill One

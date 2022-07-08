@@ -18,7 +18,10 @@ import StepFour from "../components/StepFour";
 import StepFIve from "../components/StepFIve";
 import StepSix from "../components/StepSix";
 import StepFinal from "../components/StepFinal";
-import axios from 'axios'
+import { axiosInstance } from "../utils/AxiosInstance";
+import axios from "axios";
+import { saveAs } from "file-saver";
+import { Loading } from "notiflix/build/notiflix-loading-aio";
 
 export default function Playground() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -29,7 +32,6 @@ export default function Playground() {
   const [skills, setSkills] = useRecoilState(skillList);
   const [socials, setSocials] = useRecoilState(socialLinksList);
 
-
   const NextCLicked = () => {
     setCurrentStep(currentStep + 1);
   };
@@ -38,27 +40,120 @@ export default function Playground() {
     setCurrentStep(currentStep - 1);
   };
 
-  const download = () => {
-    axios.get('/api/v1')  
-    .then(({data}) => {
-      console.log(data)
-    })
-    .catch( (err) => {
-      console.log(err)
-    })
-    // console.log({
+  const download = async () => {
+    const data = {
+      personalInfo: {
+        email: "roqeebyusuff17@gmail.com",
+        firstName: "Roqeeb",
+        lastName: "Yusuff",
+        middleName: "Oluwatoyin",
+        telephone: "2345789",
+        about:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo animi quidem aliquid sed impedit nesciunt voluptatem, quasi iure dolores soluta numquam id doloribus ipsa, voluptatum perferendis",
+      },
+      experiences: [
+        {
+          description: "Description",
+          endDate: "Present",
+          organisation: "Reedtech",
+          position: "Developer",
+          startDate: "2022-07-13",
+        },
+      ],
+      educations: [
+        {
+          course: "COmputer Science",
+          endDate: "Present",
+          institution: "FUTA",
+          startDate: "2022-07-07",
+          study: "B.TEch",
+        },
+        {
+          course: "Cyber Securtiy",
+          endDate: "Present",
+          institution: "OAU",
+          startDate: "2022-07-07",
+          study: "B.TEch",
+        },
+      ],
+      projects: [
+        {
+          description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo animi quidem aliquid sed impedit nesciunt voluptatem, quasi iure dolores soluta numquam id doloribus ipsa, voluptatum perferendis",
+          link: "Link",
+          title: "Twitter CLone",
+        },
+      ],
+      skills: ["JS", "PHP", "Others"],
+      socials: {
+        github: "github",
+        linkedin: "linkedin",
+        twitter: "twitter",
+        website: "https://roqeeb-yusuff.vercel.app/",
+      },
+    };
+    // const data = {
     //   personalInfo,
     //   educations,
     //   experiences,
     //   projects,
     //   skills,
     //   socials,
-    // });
+    // };
+    // Show loader
+    Loading.standard("Generating Resume...");
+    await axios
+      .post("/api/v1/all/resume/generatepdf", data)
+      .then(async ({ data }) => {
+        console.log("Generating data ", data);
+        if (data.success) {
+          // Change loader message if successfully generated
+          Loading.change("Fetching Resuming");
+          await axios
+            .get("/api/v1/all/resume/fetchPdf", { responseType: "arraybuffer" })
+            .then((res) => {
+              Loading.change("Downloading Resume");
+              const pdfBlob = new Blob([res.data], {
+                type: "application/pdf",
+              });
+              saveAs(
+                pdfBlob,
+                `${personalInfo.lastName} ${personalInfo.firstName} ${personalInfo.middleName}'s Resume.pdf`
+              );
+              Loading.remove(2000);
+            })
+            .catch((error) => {
+              Loading.remove(2000);
+              console.log("Fetching error ", error);
+            });
+        }
+      })
+      .catch((err) => {
+        Loading.remove(2000);
+        console.log("Generating error ", err);
+      });
   };
 
-  useEffect(() => {
-    download()
-  }, [])
+  const test = async () => {
+    Loading.hourglass("Fetching resume");
+    axios
+      .get("/api/v1/all/resume/fetchPdf", {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        responseType: "arraybuffer",
+      })
+      .then(({ data }) => {
+        const blob = new Blob([data], { type: "application/pdf" });
+        saveAs(blob, "tickets.pdf");
+        // saveAs(pdfBlob, `Alani's Resume.pdf`);
+        Loading.remove(2000);
+      })
+      .catch((err) => {
+        console.log(err);
+        Loading.remove(2000);
+      });
+  };
 
   const showComponents = () => {
     switch (currentStep) {
@@ -126,6 +221,7 @@ export default function Playground() {
               </div>
             </div>
           </section>
+          <Button onClick={test}>Download</Button>
 
           {/* <section className="btn__wrapper">
             <div className="btns d-flex justify-content-between m-auto">
