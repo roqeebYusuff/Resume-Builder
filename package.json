@@ -2,7 +2,7 @@
   "name": "Resume",
   "version": "1.0.0",
   "description": "This project will make it possible to make resume in less than five minutes",
-  "main": "src/server.js",
+  "main": "server.js",
   "author": "Roqeeb Yusuff",
   "license": "MIT",
   "engines": {
@@ -13,7 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client-dev": "cd client && yarn dev",
     "client": "cd client && yarn start",
-    "server": "env-cmd nodemon ./src/server.js",
+    "server": "env-cmd nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn client-dev\" \"yarn server\"",
     "client:build": "cd client && yarn build"
   },
