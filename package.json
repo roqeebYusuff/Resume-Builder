@@ -2,7 +2,7 @@
   "name": "Resume",
   "version": "1.0.0",
   "description": "This project will make it possible to make resume in less than five minutes",
-  "main": "server.js",
+  "main": "src/server.js",
   "author": "Roqeeb Yusuff",
   "license": "MIT",
   "engines": {
